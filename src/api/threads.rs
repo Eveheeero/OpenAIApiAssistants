@@ -1,4 +1,6 @@
+use super::reform_data;
 use crate::prelude::*;
+use std::collections::HashMap;
 
 const ENDPOINT: &str = "https://api.openai.com/v1/threads";
 
@@ -21,38 +23,44 @@ async fn send(
         .map_err(|_| Error::RequestFailed)
 }
 
-pub(crate) async fn create(api_key: impl std::fmt::Display) -> Result<(), Error> {
+pub(crate) async fn create(api_key: impl std::fmt::Display) -> Result<super::Thread, Error> {
     #[derive(Debug, serde::Serialize)]
     struct Body {}
 
     let body = Body {};
     let response = send(api_key, None, body).await?;
-    Ok(())
+    reform_data::<Thread>(response).await.map(Into::into)
 }
-pub(crate) async fn get(api_key: impl std::fmt::Display) -> Result<(), Error> {
+pub(crate) async fn get(api_key: impl std::fmt::Display) -> Result<super::Thread, Error> {
     #[derive(Debug, serde::Serialize)]
     struct Body {}
 
     let body = Body {};
     let response = send(api_key, None, body).await?;
-    Ok(())
+    reform_data::<Thread>(response).await.map(Into::into)
 }
 pub(crate) async fn delete(api_key: impl std::fmt::Display) -> Result<(), Error> {
     #[derive(Debug, serde::Serialize)]
     struct Body {}
 
     let body = Body {};
-    let response = send(api_key, None, body).await?;
+    let _response = send(api_key, None, body).await?;
     Ok(())
 }
-pub(crate) async fn modify(api_key: impl std::fmt::Display) -> Result<(), Error> {
+pub(crate) async fn modify(api_key: impl std::fmt::Display) -> Result<super::Thread, Error> {
     #[derive(Debug, serde::Serialize)]
     struct Body {}
 
     let body = Body {};
     let response = send(api_key, None, body).await?;
-    Ok(())
+    reform_data::<Thread>(response).await.map(Into::into)
 }
 
 #[derive(Debug, serde::Deserialize)]
-struct Thread {}
+pub(super) struct Thread {
+    id: String,
+    object: String,
+    created_at: u32,
+    tool_resources: Option<HashMap<String, Vec<String>>>,
+    metadata: HashMap<String, String>,
+}
