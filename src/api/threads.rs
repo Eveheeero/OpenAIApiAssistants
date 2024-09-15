@@ -64,3 +64,8 @@ pub(super) struct Thread {
     tool_resources: Option<HashMap<String, Vec<String>>>,
     metadata: HashMap<String, String>,
 }
+impl From<Thread> for super::Thread {
+    fn from(value: Thread) -> Self {
+        Self {}
+    }
+}

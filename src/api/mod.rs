@@ -18,19 +18,3 @@ pub(crate) struct Message {}
 pub(crate) struct Assistant {}
 #[derive(Debug, Clone)]
 pub(crate) struct Thread {}
-
-impl From<messages::Message> for Message {
-    fn from(value: messages::Message) -> Self {
-        Self {}
-    }
-}
-impl From<assistants::Assistant> for Assistant {
-    fn from(value: assistants::Assistant) -> Self {
-        Self {}
-    }
-}
-impl From<threads::Thread> for Thread {
-    fn from(value: threads::Thread) -> Self {
-        Self {}
-    }
-}

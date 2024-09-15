@@ -83,3 +83,8 @@ pub(super) struct Message {
     attachments: Option<Vec<serde_json::Value>>,
     metadata: HashMap<String, String>,
 }
+impl From<Message> for super::Message {
+    fn from(value: Message) -> Self {
+        Self {}
+    }
+}

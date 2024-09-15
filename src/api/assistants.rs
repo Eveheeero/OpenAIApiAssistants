@@ -82,3 +82,8 @@ pub(super) struct Assistant {
     top_p: Option<f32>,
     response_format: String,
 }
+impl From<Assistant> for super::Assistant {
+    fn from(value: Assistant) -> Self {
+        Self {}
+    }
+}
