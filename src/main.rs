@@ -2,7 +2,9 @@
 
 mod api;
 mod automation;
+pub(crate) mod error;
 mod fonts;
+pub(crate) mod prelude;
 use eframe::{egui, App};
 
 fn main() -> eframe::Result<()> {

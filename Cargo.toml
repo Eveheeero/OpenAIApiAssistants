@@ -9,4 +9,8 @@ serde = { version = "*", features = ["derive"] }
 serde_json = "*"
 sled = "0.34.7"
 tokio = { version = "*", features = ["full"] }
-reqwest = "0.11.18"
+reqwest = { version = "0.11.18", features = ["json"] }
+tracing = { version = "*", features = [
+  "release_max_level_info",
+  "max_level_debug",
+] }
