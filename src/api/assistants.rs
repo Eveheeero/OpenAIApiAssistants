@@ -23,45 +23,60 @@ async fn send(
         .map_err(|_| Error::RequestFailed)
 }
 
-pub(crate) async fn create(api_key: impl std::fmt::Display) -> Result<super::Assistant, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct AssistantsCreate {
+    pub(crate) name: Option<String>,
+    pub(crate) description: Option<String>,
+    pub(crate) model: String,
+    pub(crate) instructions: Option<String>,
+    pub(crate) tools: Vec<()>,
+    pub(crate) tool_resources: Option<HashMap<String, Vec<String>>>,
+    pub(crate) metadata: HashMap<String, String>,
+    pub(crate) temperature: Option<f32>,
+    pub(crate) top_p: Option<f32>,
+}
+pub(crate) async fn create(
+    api_key: impl std::fmt::Display,
+    body: AssistantsCreate,
+) -> Result<super::Assistant, Error> {
     let response = send(api_key, None, body).await?;
     reform_data::<Assistant>(response).await.map(Into::into)
 }
-pub(crate) async fn list(api_key: impl std::fmt::Display) -> Result<Vec<super::Assistant>, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct AssistantsListing {}
+pub(crate) async fn listing(
+    api_key: impl std::fmt::Display,
+    body: AssistantsListing,
+) -> Result<Vec<super::Assistant>, Error> {
     let response = send(api_key, None, body).await?;
     reform_data::<Vec<Assistant>>(response)
         .await
         .map(|x| x.into_iter().map(Into::into).collect())
 }
-pub(crate) async fn get(api_key: impl std::fmt::Display) -> Result<super::Assistant, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct AssistantsGet {}
+pub(crate) async fn get(
+    api_key: impl std::fmt::Display,
+    body: AssistantsGet,
+) -> Result<super::Assistant, Error> {
     let response = send(api_key, None, body).await?;
     reform_data::<Assistant>(response).await.map(Into::into)
 }
-pub(crate) async fn delete(api_key: impl std::fmt::Display) -> Result<(), Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct AssistantsDelete {}
+pub(crate) async fn delete(
+    api_key: impl std::fmt::Display,
+    body: AssistantsDelete,
+) -> Result<(), Error> {
     let _response = send(api_key, None, body).await?;
     Ok(())
 }
-pub(crate) async fn modify(api_key: impl std::fmt::Display) -> Result<super::Assistant, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct AssistantsModify {}
+pub(crate) async fn modify(
+    api_key: impl std::fmt::Display,
+    body: AssistantsModify,
+) -> Result<super::Assistant, Error> {
     let response = send(api_key, None, body).await?;
     reform_data::<Assistant>(response).await.map(Into::into)
 }

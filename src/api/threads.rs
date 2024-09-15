@@ -23,35 +23,39 @@ async fn send(
         .map_err(|_| Error::RequestFailed)
 }
 
-pub(crate) async fn create(api_key: impl std::fmt::Display) -> Result<super::Thread, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct ThreadsCreate {}
+pub(crate) async fn create(
+    api_key: impl std::fmt::Display,
+    body: ThreadsCreate,
+) -> Result<super::Thread, Error> {
     let response = send(api_key, None, body).await?;
     reform_data::<Thread>(response).await.map(Into::into)
 }
-pub(crate) async fn get(api_key: impl std::fmt::Display) -> Result<super::Thread, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct ThreadsGet {}
+pub(crate) async fn get(
+    api_key: impl std::fmt::Display,
+    body: ThreadsGet,
+) -> Result<super::Thread, Error> {
     let response = send(api_key, None, body).await?;
     reform_data::<Thread>(response).await.map(Into::into)
 }
-pub(crate) async fn delete(api_key: impl std::fmt::Display) -> Result<(), Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct ThreadsDelete {}
+pub(crate) async fn delete(
+    api_key: impl std::fmt::Display,
+    body: ThreadsDelete,
+) -> Result<(), Error> {
     let _response = send(api_key, None, body).await?;
     Ok(())
 }
-pub(crate) async fn modify(api_key: impl std::fmt::Display) -> Result<super::Thread, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct ThreadsModify {}
+pub(crate) async fn modify(
+    api_key: impl std::fmt::Display,
+    body: ThreadsModify,
+) -> Result<super::Thread, Error> {
     let response = send(api_key, None, body).await?;
     reform_data::<Thread>(response).await.map(Into::into)
 }

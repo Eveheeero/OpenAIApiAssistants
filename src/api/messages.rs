@@ -23,45 +23,50 @@ async fn send(
         .map_err(|_| Error::RequestFailed)
 }
 
-pub(crate) async fn create(api_key: impl std::fmt::Display) -> Result<super::Message, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct MessagesCreate {}
+pub(crate) async fn create(
+    api_key: impl std::fmt::Display,
+    body: MessagesCreate,
+) -> Result<super::Message, Error> {
     let response = send(api_key, "".to_string(), None, body).await?;
     reform_data::<Message>(response).await.map(Into::into)
 }
-pub(crate) async fn list(api_key: impl std::fmt::Display) -> Result<Vec<super::Message>, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct MessagesListing {}
+pub(crate) async fn listing(
+    api_key: impl std::fmt::Display,
+    body: MessagesListing,
+) -> Result<Vec<super::Message>, Error> {
     let response = send(api_key, "".to_string(), None, body).await?;
     reform_data::<Vec<Message>>(response)
         .await
         .map(|x| x.into_iter().map(Into::into).collect())
 }
-pub(crate) async fn get(api_key: impl std::fmt::Display) -> Result<super::Message, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct MessagesGet {}
+pub(crate) async fn get(
+    api_key: impl std::fmt::Display,
+    body: MessagesGet,
+) -> Result<super::Message, Error> {
     let response = send(api_key, "".to_string(), None, body).await?;
     reform_data::<Message>(response).await.map(Into::into)
 }
-pub(crate) async fn delete(api_key: impl std::fmt::Display) -> Result<(), Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct MessagesDelete {}
+pub(crate) async fn delete(
+    api_key: impl std::fmt::Display,
+    body: MessagesDelete,
+) -> Result<(), Error> {
     let _response = send(api_key, "".to_string(), None, body).await?;
     Ok(())
 }
-pub(crate) async fn modify(api_key: impl std::fmt::Display) -> Result<super::Message, Error> {
-    #[derive(Debug, serde::Serialize)]
-    struct Body {}
-
-    let body = Body {};
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct MessagesModify {}
+pub(crate) async fn modify(
+    api_key: impl std::fmt::Display,
+    body: MessagesModify,
+) -> Result<super::Message, Error> {
     let response = send(api_key, "".to_string(), None, body).await?;
     reform_data::<Message>(response).await.map(Into::into)
 }
